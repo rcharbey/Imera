@@ -84,7 +84,7 @@ if __name__ == '__main__':
 	build_folders(folder)
 	write_README()
 	
-	list_egos =  [x.split('.')[0] for x in listdir(join('..', 'JSONS'))]
+	list_egos =  [x.split('.')[0] for x in listdir(join('Data', 'JSONS'))]
 	for ego in list_egos:
 		Get_qualified(ego).run()
 										    
