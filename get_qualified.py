@@ -21,7 +21,7 @@ class Get_qualified:
 	
 	def __init__(self, ego):
 		self.ego = ego
-		self.json_folder = join('Data', 'JSONS', ego)
+		self.json_folder = join('JSONS', ego)
 		self.qualified_file = join(self.json_folder, 'qualified.json.gz')
 		self.cluster_folder = join('GALLERY', 'Cluster_per_alter')
 		self.cluster_file = join(self.cluster_folder, f'{ego}.csv')
@@ -84,7 +84,7 @@ if __name__ == '__main__':
 	build_folders(folder)
 	write_README()
 	
-	list_egos =  [x.split('.')[0] for x in listdir(join('Data', 'JSONS'))]
+	list_egos =  [x.split('.')[0] for x in listdir('JSONS')]
 	for ego in list_egos:
 		Get_qualified(ego).run()
 										    
