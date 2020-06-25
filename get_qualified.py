@@ -31,7 +31,7 @@ class Get_qualified:
 		self.result_folder = join('Results', 'Qualified', 'Egos')
 		if not isdir(self.result_folder):
 			makedirs(self.result_folder)
-		self.result_file = join(self.result_folder, '{ego}.csv')
+		self.result_file = join(self.result_folder, f'{ego}.csv')
 		
 	def _is_true(self, str_boolean):
 		return str_boolean == 'true'
