@@ -62,7 +62,12 @@ class Get_qualified:
 		self.get_cluster_per_qualified()
 		self.read_json()
 		self.write_result()
-		
+	
+	
+	
+def build_folders(folder):
+	if not isdir(folder):
+		makedirs(folder)
 		
 def write_README():
 	with open(join('Results', 'Qualified', 'README.md'), 'w') as to_write:
@@ -71,9 +76,12 @@ def write_README():
 		   to_write.write('avec ego, son cluster et depuis combien de temps ego le connaît \n')
 		   to_write.write('champs : alter, is_family, is_coworker, is_friend,')
 		   to_write.write('is_acquaintance, since, cluster \n')
-		   to_write.write('compute : python get_qualified.py \n')
+		   to_write.write('compute : python3 get_qualified.py \n')
 		   
 if __name__ == '__main__':
+	
+	folder = join('Results', 'Qualified')
+	build_folders(folder)
 	write_README()
 	
 	list_egos =  [x.split('.')[0] for x in listdir(join('..', 'Data', 'Posts'))]
