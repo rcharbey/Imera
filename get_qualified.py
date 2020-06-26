@@ -38,6 +38,7 @@ class Get_qualified:
 		
 	def get_cluster_per_qualified(self):
 		self.cluster_per_alter = csv_to_dict(self.cluster_file)
+		print(self.cluster_per_alter)
 		
 	def read_json(self):
 		json_file = gzip.open(self.qualified_file, 'rb')
