@@ -44,14 +44,14 @@ class Get_qualified:
 		for line in json_file:
 			qualifieds = json.loads(line)['friends']
 			for qualified in qualifieds:
-				print(qualified)
 				id_qualified = qualified['user_id']
+				data = qualified['data']
 				self.infos_per_qualified[id_qualified] = {
-					  'since' : qualified['since']
+					  'since' : data['since']
 				}
 				infos = self.infos_per_qualified[id_qualified]
 				for relationship in self.list_relationships:
-					is_relationship = self._is_true(qualified['relationship'])	   
+					is_relationship = self._is_true(data['relationship'])	   
 					infos[f'is_{relationship}'] = is_relationship
 				
 				infos['cluster'] = self.cluster_per_alter[id_qualified]
