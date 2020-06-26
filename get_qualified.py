@@ -22,7 +22,7 @@ class Get_qualified:
 	def __init__(self, ego):
 		self.ego = ego
 		self.json_folder = join('JSONS', ego)
-		self.qualified_file = join(self.json_folder, 'qualified.json.gz')
+		self.qualified_file = join(self.json_folder, 'qualify.json.gz')
 		self.cluster_folder = join('GALLERY', 'Cluster_per_alter')
 		self.cluster_file = join(self.cluster_folder, f'{ego}.csv')
 		
