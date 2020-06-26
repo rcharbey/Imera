@@ -27,7 +27,7 @@ class Get_qualified:
 		self.cluster_file = join(self.cluster_folder, f'{ego}.csv')
 		
 		self.infos_per_qualified = {}
-		self.list_relationships =  ['family', 'coworker', 'friend', 'acquaintace']
+		self.list_relationships =  ['family', 'coworker', 'friend', 'acquaintance']
 		self.result_folder = join('Results', 'Qualified', 'Egos')
 		if not isdir(self.result_folder):
 			makedirs(self.result_folder)
