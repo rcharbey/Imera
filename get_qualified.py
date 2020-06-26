@@ -51,7 +51,7 @@ class Get_qualified:
 				}
 				infos = self.infos_per_qualified[id_qualified]
 				for relationship in self.list_relationships:
-					is_relationship = self._is_true(data['relationship'])	   
+					is_relationship = self._is_true(data[relationship])	   
 					infos[f'is_{relationship}'] = is_relationship
 				
 				infos['cluster'] = self.cluster_per_alter[id_qualified]
