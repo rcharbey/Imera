@@ -44,6 +44,7 @@ class Get_qualified:
 		for line in json_file:
 			qualifieds = json.loads(line)['friends']
 			for qualified in qualifieds:
+				print(qualified)
 				id_qualified = qualified['user_id']
 				self.infos_per_qualified[id_qualified] = {
 					  'since' : qualified['since']
