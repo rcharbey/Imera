@@ -88,5 +88,4 @@ if __name__ == '__main__':
 			Get_qualified(ego).run()
 		except:
 			print(ego)
-		break
 										    
