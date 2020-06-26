@@ -35,6 +35,7 @@ class Get_qualified:
 		
 	def _is_true(self, str_boolean):
 		print(str_boolean)
+		print(type(str_boolean))
 		return str_boolean == 'true'
 		
 	def get_cluster_per_qualified(self):
