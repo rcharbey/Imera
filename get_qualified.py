@@ -10,7 +10,7 @@ import json
 from os.path import join, isdir
 from os import listdir, makedirs
 import gzip
-from csv_utils import dict_to_csv, csv_to_dict
+from csv_utils import dict_to_csv, csv_to_labels
 
 """
 since : depuis quand l'enquêté connaît son ami
@@ -37,7 +37,7 @@ class Get_qualified:
 		return str_boolean == 'true'
 		
 	def get_cluster_per_qualified(self):
-		self.cluster_per_alter = csv_to_dict(self.cluster_file)
+		self.cluster_per_alter = csv_to_labels(self.cluster_file)
 		print(self.cluster_per_alter)
 		
 	def read_json(self):
