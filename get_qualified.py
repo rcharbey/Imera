@@ -34,6 +34,7 @@ class Get_qualified:
 		self.result_file = join(self.result_folder, f'{ego}.csv')
 		
 	def _is_true(self, str_boolean):
+		print(str_boolean)
 		return str_boolean == 'true'
 		
 	def get_cluster_per_qualified(self):
@@ -91,4 +92,5 @@ if __name__ == '__main__':
 			Get_qualified(ego).run()
 		except:
 			print(ego)
+		break
 										    
