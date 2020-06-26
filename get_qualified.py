@@ -33,11 +33,6 @@ class Get_qualified:
 			makedirs(self.result_folder)
 		self.result_file = join(self.result_folder, f'{ego}.csv')
 		
-	def _is_true(self, str_boolean):
-		print(str_boolean)
-		print(type(str_boolean))
-		return str_boolean == 'true'
-		
 	def get_cluster_per_qualified(self):
 		self.cluster_per_alter = csv_to_labels(self.cluster_file)
 		
@@ -53,7 +48,7 @@ class Get_qualified:
 				}
 				infos = self.infos_per_qualified[id_qualified]
 				for relationship in self.list_relationships:
-					is_relationship = self._is_true(data[relationship])	   
+					is_relationship = data[relationship]
 					infos[f'is_{relationship}'] = is_relationship
 				
 				infos['cluster'] = self.cluster_per_alter[id_qualified]
