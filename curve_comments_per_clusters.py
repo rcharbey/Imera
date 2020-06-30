@@ -91,7 +91,8 @@ def write_README():
 		   to_write.write('cluster -1 : individus non alter \n')
 		   to_write.write('compute : python3 curve_comments_per_clusters.py \n')
 		
-list_egos = [x.split('.')[0] for x in listdir(join('..', 'Data', 'Alter-cluster-timestamp'))]
+list_egos = [x.split('.')[0] for x in listdir(join('..', 'Data', 'Alter-cluster-timestamp')) 
+			 if x.split('.')[1] == 'csv']
 
 for ego in list_egos:
 	print(ego)
