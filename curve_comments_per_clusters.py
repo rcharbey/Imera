@@ -14,8 +14,8 @@ import utils
 class Draw_ego:
 	
 	def __init__(self, ego):
-		self.data_folder = join('..', 'Data', 'Posts')
-		self.result_folder = join('..', 'Results', 'Posts', 'Plot')
+		self.data_folder = join('..', 'Data', 'Alter-cluster-timestamp')
+		self.result_folder = join('..', 'Results', 'Plots_cluster_activity', 'Egos')
 		if not isdir(self.result_folder):
 			makedirs(self.result_folder)
 		
@@ -33,7 +33,7 @@ class Draw_ego:
 		
 		self.posts_per_cluster.pop('ego', None)
 		
-		self.result_folder = join('..', 'Results', 'Posts', 'Norm_Plot')
+		self.result_folder = join('..', 'Results', 'Norm_plots_cluster_activity', 'Egos')
 		if not isdir(self.result_folder):
 			makedirs(self.result_folder)
 		
@@ -72,9 +72,7 @@ class Draw_ego:
 		        label.set_visible(False)
 				
 				
-		lgd = ax.legend(loc = 'center right', bbox_to_anchor=(1.3, 0.5))				
-			
-		print(self.result_file)
+		ax.legend(loc = 'center right', bbox_to_anchor=(1.3, 0.5))	
 		plt.savefig(self.result_file, bbox_inches="tight")
 		
 	
@@ -84,7 +82,16 @@ class Draw_ego:
 		#self.normalize_data()
 		self.plot()
 		
-list_egos = [x.split('.')[0] for x in listdir(join('..', 'Data', 'Posts'))]
+
+		
+def write_README():
+	with open(join('Results', 'Plots_cluster_activity', 'README.md'), 'w') as to_write:
+		   to_write.write('Figure de l\'activité des clusters au fil du temps \n')
+		   to_write.write('chaque valeur est aggrégée sur 7 mois \n')
+		   to_write.write('cluster -1 : individus non alter \n')
+		   to_write.write('compute : python3 curve_comments_per_clusters.py \n')
+		
+list_egos = [x.split('.')[0] for x in listdir(join('..', 'Data', 'Alter-cluster-timestamp'))]
 
 for ego in list_egos:
 	try:
