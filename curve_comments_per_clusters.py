@@ -62,7 +62,7 @@ class Draw_ego:
 				y.append(self.posts_per_cluster[cluster].get(date_str, 0))
 			
 			linestyle = 'dotted' if cluster == 'ego' else 'solid'
-			plt.plot(x, y, linestyle = linestyle)	
+			plt.plot(x, y, linestyle = linestyle, label=cluster)	
 			
 		plt.xticks(fontsize=6, rotation=60)
 				
@@ -71,13 +71,17 @@ class Draw_ego:
 		    if n % every_nth != 0:
 		        label.set_visible(False)
 				
-		plt.savefig(self.result_file)
+				
+		lgd = ax.legend(loc = 'center right', bbox_to_anchor=(1.3, 0.5))				
+			
+		print(self.result_file)
+		plt.savefig(self.result_file, bbox_inches="tight")
 		
 	
 	def run(self):
 		self.read_data()
 		self.posts_per_cluster = utils.smooth_data(self.posts_per_cluster, self.months)
-		self.normalize_data()
+		#self.normalize_data()
 		self.plot()
 		
 list_egos = [x.split('.')[0] for x in listdir(join('..', 'Data', 'Posts'))]
