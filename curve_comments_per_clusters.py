@@ -94,6 +94,7 @@ def write_README():
 list_egos = [x.split('.')[0] for x in listdir(join('..', 'Data', 'Alter-cluster-timestamp'))]
 
 for ego in list_egos:
+	print(ego)
 	Draw_ego(ego).run()
 	try:
 		Draw_ego(ego).run()
