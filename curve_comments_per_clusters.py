@@ -74,6 +74,8 @@ class Draw_ego:
 				
 		ax.legend(loc = 'center right', bbox_to_anchor=(1.3, 0.5))	
 		plt.savefig(self.result_file, bbox_inches="tight")
+		plt.cla()
+		plt.close("all")
 		
 	
 	def run(self):
@@ -95,6 +97,7 @@ list_egos = [x.split('.')[0] for x in listdir(join('..', 'Data', 'Alter-cluster-
 			 if '.csv.gz' in x]
 
 for ego in list_egos:
+	print(len(list_egos))
 	try:
 		Draw_ego(ego).run()
 	except:
