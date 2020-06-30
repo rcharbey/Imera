@@ -20,7 +20,7 @@ class Draw_ego:
 			makedirs(self.result_folder)
 		
 		self.ego = ego
-		self.data_file = join(self.data_folder, f'{ego}.csv')
+		self.data_file = join(self.data_folder, f'{ego}.csv.gz')
 		self.months = set()
 		self.ego = ego
 		

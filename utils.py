@@ -26,7 +26,7 @@ def get_posts_per_cluster(data_file):
 	
 	posts_per_cluster = {}
 	
-	with open(data_file, 'r') as to_read:
+	with gzip.open(data_file, 'r') as to_read:
 		csvr = csv.reader(to_read)
 		next(csvr)
 		for line in csvr:
