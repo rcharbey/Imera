@@ -9,6 +9,7 @@ Created on Thu Jun  4 09:48:36 2020
 import csv
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import gzip
 
 		
 def date_to_str(date):
