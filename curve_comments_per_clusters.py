@@ -49,7 +49,7 @@ class Draw_ego:
 					
  				
 	def plot(self):
-		self.result_file = join(self.result_folder, f'{self.ego}.svg')
+		self.result_file = join(self.result_folder, f'{self.ego[:8]}.svg')
 		
 		fig, ax = plt.subplots()
 		
