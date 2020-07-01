@@ -37,10 +37,10 @@ class Cluster_order:
 		for month in self.months:
 			top_cluster = -1
 			top, second = 0, 0
-			for cluster in self.posts_per_cluster:
+			for cluster in self.smoothed_posts_per_cluster:
 				if cluster == 'ego' or cluster == '-1':
 					continue
-				cluster_posts = self.posts_per_cluster[cluster].get(month, 0)
+				cluster_posts = self.smoothed_posts_per_cluster[cluster].get(month, 0)
 				if cluster_posts > top:
 					second = top
 					top = cluster_posts
@@ -48,19 +48,20 @@ class Cluster_order:
 				elif cluster_posts > second:
 					second = cluster_posts
 			ratio = top/float(second) if second != 0 else 'inf'
-			self.max_cluster_per_month[month] = (top_cluster, top, ratio)
+			non_smooth_top = self.posts_per_cluster[month][top_cluster]
+			self.max_cluster_per_month[month] = (top_cluster, top, ratio, non_smooth_top)
 			
 	def write_results(self):
 		with open(join(self.result_folder, f'{self.ego}.csv'),'w') as to_write:
 			csvw = csv.writer(to_write)
-			csvw.writerow(['month', 'first_cluster', 'nb_posts', 'ratio_over_second'])
+			csvw.writerow(['month', 'first_cluster', 'nb_posts (smooth)', 'ratio_over_second', 'nb_posts'])
 			for month in self.months:
-				top_cluster, top, ratio = self.max_cluster_per_month[month]
-				csvw.writerow([month, top_cluster, top, ratio])
+				top_cluster, top, ratio, non_smooth_top = self.max_cluster_per_month[month]
+				csvw.writerow([month, top_cluster, top, ratio, non_smooth_top])
 				
 	def run(self):
 		self.read_data()
-		self.posts_per_cluster = utils.smooth_data(self.posts_per_cluster, self.months)
+		self.smoothed_posts_per_cluster = utils.smooth_data(self.posts_per_cluster, self.months)
 		self.get_cluster_per_month()
 		self.write_results()
 		
@@ -74,7 +75,7 @@ def write_README():
 		   to_write.write('CSV contenant le cluster le plus actif par mois')
 		   to_write.write('chaque valeur est aggrégée sur 7 mois \n')
 		   to_write.write('cluster -1 : individus non alter \n')
-		   to_write.write("champs : 'month', 'first_cluster', 'nb_posts', 'ratio_over_second' \n")
+		   to_write.write("champs : 'month', 'first_cluster', 'nb_posts (smooth)', 'ratio_over_second' 'nb_posts'\n")
 		   to_write.write('compute : python3 cluster_order.py \n')
 		   
 if __name__ == '__main__':		
