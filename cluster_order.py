@@ -90,6 +90,5 @@ if __name__ == '__main__':
 			Cluster_order(ego).run()		
 		except:
 			print(ego)
-		break
 			
 			
