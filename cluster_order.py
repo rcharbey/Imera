@@ -21,7 +21,7 @@ class Cluster_order:
 			makedirs(self.result_folder)
 		
 		self.ego = ego[0:8]
-		self.data_file = join(self.data_folder, f'{ego}.csv')
+		self.data_file = join(self.data_folder, f'{ego}.csv.gz')
 		self.months = set()
 		
 	
