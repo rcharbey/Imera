@@ -84,8 +84,9 @@ if __name__ == '__main__':
 				 if '.csv.gz' in x]
 	
 	
-	write_README()
+	write_README()	
 	for ego in list_egos:
+		Cluster_order(ego).run()
 		try:
 			Cluster_order(ego).run()		
 		except:
