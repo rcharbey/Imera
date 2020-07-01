@@ -87,19 +87,25 @@ class Draw_ego:
 
 		
 def write_README():
-	with open(join('Results', 'Plots_cluster_activity', 'README.md'), 'w') as to_write:
+	
+	if not isdir(join('..', 'Results', 'Plots_cluster_activity')):
+		makedirs(join('..', 'Results', 'Plots_cluster_activity'))
+		
+	with open(join('..', 'Results', 'Plots_cluster_activity', 'README.md'), 'w') as to_write:
 		   to_write.write('Figure de l\'activité des clusters au fil du temps \n')
 		   to_write.write('chaque valeur est aggrégée sur 7 mois \n')
 		   to_write.write('cluster -1 : individus non alter \n')
 		   to_write.write('compute : python3 curve_comments_per_clusters.py \n')
-		
-list_egos = [x.split('.')[0] for x in listdir(join('..', 'Data', 'Alter-cluster-timestamp')) 
-			 if '.csv.gz' in x]
 
-for ego in list_egos:
-	print(len(list_egos))
-	try:
-		Draw_ego(ego).run()
-	except:
-		print(ego)
-		continue
+if __name__ == '__main__':		
+	
+	list_egos = [x.split('.')[0] for x in listdir(join('..', 'Data', 'Alter-cluster-timestamp')) 
+				 if '.csv.gz' in x]
+	
+	write_README()
+	for ego in list_egos:
+		try:
+			Draw_ego(ego).run()
+		except:
+			print(ego)
+			continue
