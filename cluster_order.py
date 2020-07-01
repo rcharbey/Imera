@@ -48,7 +48,7 @@ class Cluster_order:
 				elif cluster_posts > second:
 					second = cluster_posts
 			ratio = top/float(second) if second != 0 else 'inf'
-			non_smooth_top = self.posts_per_cluster[month][top_cluster]
+			non_smooth_top = self.posts_per_cluster[month].get(top_cluster, 0)
 			self.max_cluster_per_month[month] = (top_cluster, top, ratio, non_smooth_top)
 			
 	def write_results(self):
