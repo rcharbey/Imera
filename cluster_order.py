@@ -79,7 +79,9 @@ def write_README():
 		   
 if __name__ == '__main__':		
 	
-	list_egos = [x.split('.')[0] for x in listdir(join('..', 'Data', 'Alter-cluster-timestamp'))]
+	list_egos = [x.split('.')[0] for x in listdir(join('..', 'Data', 'Alter-cluster-timestamp')) 
+				 if '.csv.gz' in x]
+	
 	
 	write_README()
 	for ego in list_egos:
