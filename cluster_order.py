@@ -15,7 +15,7 @@ import utils
 class Cluster_order:
 	
 	def __init__(self, ego):
-		self.data_folder = join('..', 'Data', 'Posts')
+		self.data_folder = join('..', 'Data', 'Alter-cluster-timestamp')
 		self.result_folder = join('..', 'Results', 'Cluster_order', 'Egos')
 		if not isdir(self.result_folder):
 			makedirs(self.result_folder)
@@ -79,7 +79,7 @@ def write_README():
 		   
 if __name__ == '__main__':		
 	
-	list_egos = [x.split('.')[0] for x in listdir(join('..', 'Data', 'Posts'))]
+	list_egos = [x.split('.')[0] for x in listdir(join('..', 'Data', 'Alter-cluster-timestamp'))]
 	
 	write_README()
 	for ego in list_egos:
