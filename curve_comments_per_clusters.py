@@ -28,6 +28,12 @@ class Draw_ego:
 		
 		self.posts_per_cluster = utils.get_posts_per_cluster(self.data_file)
 		self.months = utils.get_months(self.posts_per_cluster)
+		self.total_post_per_clusters = {}
+		for cluster in self.posts_per_cluster:
+			total_posts = 0
+			for month in self.posts_per_cluster[cluster]:
+				total_posts += self.posts_per_cluster[cluster][month]
+			self.total_post_per_clusters[cluster] = total_posts
 		
 	def normalize_data(self):
 		
@@ -53,7 +59,17 @@ class Draw_ego:
 		
 		fig, ax = plt.subplots()
 		
-		for cluster in self.posts_per_cluster:
+		list_clusters = list(self.posts_per_cluster.keys())
+		list_clusters.sort(key = lambda x : self.total_post_per_clusters[x], reverse = True)
+		print(list_clusters)
+		if 'ego' in list_clusters:
+			list_clusters.pop(list_clusters.index('ego'))
+			list_clusters = ['ego'] + list_clusters
+		if '-1' in list_clusters:
+			list_clusters.pop(list_clusters.index('-1'))
+			list_clusters = list_clusters + ['-1']
+		
+		for cluster in list_clusters:
 			
 			x, y = [], []
 			
