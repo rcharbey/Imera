@@ -90,7 +90,9 @@ class Draw_ego:
 				
 				
 		ax.legend(loc = 'center right', bbox_to_anchor=(1.3, 0.5))	
+		fig.suptitle(ego[:8])
 		plt.savefig(self.result_file, bbox_inches="tight", format='svg')
+		plt.legend(ego)
 		plt.cla()
 		plt.close("all")
 		
