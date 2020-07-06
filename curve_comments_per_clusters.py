@@ -15,7 +15,7 @@ class Draw_ego:
 	
 	def __init__(self, ego):
 		self.data_folder = join('..', 'Data', 'Alter-cluster-timestamp')
-		self.result_folder = join('..', 'Results', 'Plots_cluster_activity', 'Egos')
+		self.result_folder = join('..', 'Results', 'Plots_cluster_activity_no_smooth', 'Egos')
 		if not isdir(self.result_folder):
 			makedirs(self.result_folder)
 		
@@ -63,12 +63,13 @@ class Draw_ego:
 		list_clusters.sort(key = lambda x : self.total_post_per_clusters[x], reverse = True)
 		print(list_clusters)
 		if 'ego' in list_clusters:
-			list_clusters.pop(list_clusters.index('ego'))
-			list_clusters = ['ego'] + list_clusters
+ 			list_clusters.pop(list_clusters.index('ego'))
+ 			list_clusters = ['ego'] + list_clusters
 		if '-1' in list_clusters:
-			list_clusters.pop(list_clusters.index('-1'))
-			list_clusters = list_clusters + ['-1']
+ 			list_clusters.pop(list_clusters.index('-1'))
+ 			list_clusters = list_clusters + ['-1']
 		
+		print(list_clusters)
 		for cluster in list_clusters:
 			
 			x, y = [], []
@@ -89,14 +90,14 @@ class Draw_ego:
 				
 				
 		ax.legend(loc = 'center right', bbox_to_anchor=(1.3, 0.5))	
-		plt.savefig(self.result_file, bbox_inches="tight")
+		plt.savefig(self.result_file, bbox_inches="tight", format='svg')
 		plt.cla()
 		plt.close("all")
 		
 	
 	def run(self):
 		self.read_data()
-		self.posts_per_cluster = utils.smooth_data(self.posts_per_cluster, self.months)
+		#self.posts_per_cluster = utils.smooth_data(self.posts_per_cluster, self.months)
 		#self.normalize_data()
 		self.plot()
 		
@@ -109,7 +110,7 @@ def write_README():
 		
 	with open(join('..', 'Results', 'Plots_cluster_activity', 'README.md'), 'w') as to_write:
 		   to_write.write('Figure de l\'activité des clusters au fil du temps \n')
-		   to_write.write('chaque valeur est aggrégée sur 7 mois \n')
+		   #to_write.write('chaque valeur est aggrégée sur 7 mois \n')
 		   to_write.write('cluster -1 : individus non alter \n')
 		   to_write.write('compute : python3 curve_comments_per_clusters.py \n')
 
@@ -125,3 +126,4 @@ if __name__ == '__main__':
 		except:
 			print(ego)
 			continue
+		break
