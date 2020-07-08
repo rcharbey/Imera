@@ -24,7 +24,7 @@ class Get_qualified:
 		self.json_folder = join('JSONS', ego)
 		self.ego = ego[8:]
 		self.qualified_file = join(self.json_folder, 'qualify.json.gz')
-		self.cluster_folder = join('GALLERY', 'Cluster_per_alter', 'EGOS')
+		self.cluster_folder = join('GALLERY', 'Cluster_per_alter', 'Egos')
 		self.cluster_file = join(self.cluster_folder, f'{ego}.csv')
 		
 		self.infos_per_qualified = {}
