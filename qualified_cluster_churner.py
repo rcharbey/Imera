@@ -42,12 +42,12 @@ def get_qualified(ego):
 		for line in csvr:
 			"element","is_friend","is_coworker","is_family","since","cluster","is_acquaintance"
 
-			alter = line.index('element')
-			cluster= line.index('cluster')
+			alter = header.index('element')
+			cluster= header.index('cluster')
 			
 			qualified_alters[alter] = {'cluster' : cluster, 'qualifications' : []}
 			for qualification in qualifications:
-				if line[line.index(qualification)] == 'True':
+				if line[header.index(qualification)] == 'True':
 					qualified_alters['qualifications'].append(qualification)
 	
 	
