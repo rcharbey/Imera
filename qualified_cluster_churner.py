@@ -77,9 +77,11 @@ if __name__ == '__main__':
 	cluster_order_per_qualif = {qualification : {1 : 0, 2 : 0} for qualification in qualifications}
 	
 	for ego in list_egos:
-		qualified_alters = get_qualified(ego)
+		qualified_alters = get_qualified(ego) 
+		print(clusters_per_ego[ego])
 		for alter in qualified_alters:
 			cluster = qualified_alters[alter]['cluster']
+			print(cluster)
 			if cluster in clusters_per_ego[ego]:
 				cluster_order = clusters_per_ego[ego].index(cluster) + 1
 				for qualification in alter['qualifications']:
