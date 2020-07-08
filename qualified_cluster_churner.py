@@ -78,12 +78,14 @@ if __name__ == '__main__':
 	
 	for ego in list_egos:
 		qualified_alters = get_qualified(ego)
-		print(qualified_alters)
 		for alter in qualified_alters:
 			cluster = qualified_alters[alter]['cluster']
 			if cluster in clusters_per_ego[ego]:
 				cluster_order = clusters_per_ego[ego].index(cluster) + 1
-				print(qualified_alters[alter])
 				for qualification in alter['qualifications']:
 					cluster_order_per_qualif[qualification][cluster_order] += 1
+					
+	for qualification in qualifications:
+		for order in cluster_order[qualification]:
+			print(f'{qualification} : cluster_order[qualification][order]')
 		
