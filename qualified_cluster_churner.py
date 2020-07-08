@@ -86,6 +86,6 @@ if __name__ == '__main__':
 					cluster_order_per_qualif[qualification][cluster_order] += 1
 					
 	for qualification in qualifications:
-		for order in cluster_order[qualification]:
+		for order in cluster_order_per_qualif[qualification]:
 			print(f'{qualification} : cluster_order_per_qualif[qualification][order]')
-		
+		print()
