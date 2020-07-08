@@ -48,7 +48,7 @@ def get_qualified(ego):
 			qualified_alters[alter] = {'cluster' : cluster, 'qualifications' : []}
 			for qualification in qualifications:
 				if line[header.index(qualification)] == 'True':
-					qualified_alters['qualifications'].append(qualification)
+					qualified_alters[alter]['qualifications'].append(qualification)
 	
 	
 	return qualified_alters
