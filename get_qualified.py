@@ -84,6 +84,8 @@ if __name__ == '__main__':
 	
 	list_egos =  [x.split('.')[0] for x in listdir('JSONS')]
 	for ego in list_egos:
+		print(ego)
+		Get_qualified(ego).run()
 		try:
 			Get_qualified(ego).run()
 		except:
