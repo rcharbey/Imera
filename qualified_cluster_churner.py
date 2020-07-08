@@ -83,6 +83,7 @@ if __name__ == '__main__':
 			if cluster in clusters_per_ego[ego]:
 				cluster_order = clusters_per_ego[ego].index(cluster) + 1
 				for qualification in alter['qualifications']:
+					print(qualification)
 					cluster_order_per_qualif[qualification][cluster_order] += 1
 					
 	for qualification in qualifications:
