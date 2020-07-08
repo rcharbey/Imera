@@ -55,6 +55,7 @@ class Get_qualified:
 				infos['cluster'] = self.cluster_per_alter[id_qualified]
 				
 	def write_result(self):
+		print(self.result_file)
 		dict_to_csv(self.infos_per_qualified, self.result_file)
 		
 	def run(self):
