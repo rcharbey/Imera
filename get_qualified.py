@@ -22,17 +22,17 @@ class Get_qualified:
 	def __init__(self, ego):
 		self.ego = ego
 		self.json_folder = join('JSONS', ego)
-		self.ego = ego[8:]
-		self.qualified_file = join(self.json_folder, 'qualify.json.gz')
 		self.cluster_folder = join('GALLERY', 'Cluster_per_alter', 'Egos')
-		self.cluster_file = join(self.cluster_folder, f'{ego}.csv')
+		self.cluster_file = join(self.cluster_folder, f'{self.ego}.csv')
+		self.qualified_file = join(self.json_folder, 'qualify.json.gz')
+		self.ego = ego[8:]
 		
 		self.infos_per_qualified = {}
 		self.list_relationships =  ['family', 'coworker', 'friend', 'acquaintance']
 		self.result_folder = join('Results', 'Qualified', 'Egos')
 		if not isdir(self.result_folder):
 			makedirs(self.result_folder)
-		self.result_file = join(self.result_folder, f'{ego}.csv')
+		self.result_file = join(self.result_folder, f'{self.ego}.csv')
 		
 	def get_cluster_per_qualified(self):
 		self.cluster_per_alter = csv_to_labels(self.cluster_file)
