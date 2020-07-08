@@ -9,7 +9,10 @@ Created on Wed Jul  8 18:24:05 2020
 from os.path import join, isdir
 from os import makedirs
 from csv_utils import csv_to_dict
+import csv
 
+	
+qualifications = ["is_friend","is_coworker","is_family","is_acquaintance"]
 
 	
 def build_folders(folder):
@@ -30,14 +33,30 @@ def write_README(folder):
 def get_qualified(ego):
 	cluster_folder = join('..', 'Results', 'Qualified', 'Egos')
 	cluster_file = join(cluster_folder, f'{ego}.csv')
-	return csv_to_dict(cluster_file)
+	
+	qualified_alters = {}
+	with open(cluster_file, 'r') as to_read:
+		csvr = csv.reader(to_read)
+		
+		header = next(csvr)
+		for line in csvr:
+			"element","is_friend","is_coworker","is_family","since","cluster","is_acquaintance"
+
+			alter = line.index('element')
+			cluster= line.index('cluster')
+			
+			qualified_alters[alter] = {'cluster' : cluster, 'qualifications' : []}
+			for qualification in qualifications:
+				if line[line.index(qualification)] == 'True':
+					qualified_alters['qualifications'].append(qualification)
+	
+	
+	return qualified_alters
 
 	
 	
 		   
 if __name__ == '__main__':
-	
-	import csv
 	
 	Nabil_folder = join('..', 'Data', 'NABIL')
 	clusters_per_ego = {}
@@ -55,18 +74,16 @@ if __name__ == '__main__':
 	folder = join('..', 'Results', 'qualified_cluster_churner')
 	#build_folders(folder)
 	#write_README(folder)
-	
-	qualifications = ["is_friend","is_coworker","is_family","is_acquaintance"]
 	cluster_order_per_qualif = {qualification : {1 : 0, 2 : 0} for qualification in qualifications}
 	
 	for ego in list_egos:
-		qualified_alters, header = get_qualified(ego)
+		qualified_alters = get_qualified(ego)
+		print(qualified_alters)
 		for alter in qualified_alters:
-			cluster = alter[cluster]
+			cluster = alter['cluster']
 			if cluster in clusters_per_ego[ego]:
 				cluster_order = clusters_per_ego[ego].index(cluster) + 1
 				print(alter)
-				for qualification in qualifications:
-					if qualified_alters[qualification]:
-						cluster_order_per_qualif[qualification][cluster_order] += 1
+				for qualification in alter[qualifications]:
+					cluster_order_per_qualif[qualification][cluster_order] += 1
 		
