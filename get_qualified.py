@@ -25,7 +25,7 @@ class Get_qualified:
 		self.cluster_folder = join('GALLERY', 'Cluster_per_alter', 'Egos')
 		self.cluster_file = join(self.cluster_folder, f'{self.ego}.csv')
 		self.qualified_file = join(self.json_folder, 'qualify.json.gz')
-		self.ego = ego[8:]
+		self.ego = ego[:8]
 		
 		self.infos_per_qualified = {}
 		self.list_relationships =  ['family', 'coworker', 'friend', 'acquaintance']
@@ -86,10 +86,7 @@ if __name__ == '__main__':
 	
 	list_egos =  [x.split('.')[0] for x in listdir('JSONS')]
 	for ego in list_egos:
-		print(ego)
-		Get_qualified(ego).run()
 		try:
 			Get_qualified(ego).run()
 		except:
 			print(ego)
-		break	   
