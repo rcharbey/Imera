@@ -8,9 +8,8 @@ Created on Wed Jul  8 18:24:05 2020
 
 from os.path import join, isdir
 from os import makedirs
-from csv_utils import csv_to_dict
 import csv
-
+from scipy.stats import chi2_contingency
 	
 qualifications = ["is_friend","is_coworker","is_family","is_acquaintance"]
 
@@ -88,7 +87,14 @@ if __name__ == '__main__':
 					print(qualification)
 					cluster_order_per_qualif[qualification][cluster_order] += 1
 					
+	data_for_chi2 = []
 	for qualification in qualifications:
+		qualif_data = []
 		for order in cluster_order_per_qualif[qualification]:
-			print(f'{qualification} : {cluster_order_per_qualif[qualification][order]}')
+			nb_qualified_order = cluster_order_per_qualif[qualification][order]
+			print(f'{qualification} : {nb_qualified_order}')
+			qualif_data.append(nb_qualified_order)
+		data_for_chi2.append(qualif_data)
 		print()
+		
+	print(chi2_contingency(data_for_chi2))
