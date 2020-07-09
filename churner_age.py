@@ -23,14 +23,18 @@ class Age_per_cluster():
 		
 	def get_age_date(self):
 		last_month = ''
+		if not f'{self.ego}.csv' in listdir(self.cluster_order):
+			return -1
 		with open(join(self.cluster_order, f'{self.ego}.csv'), 'r') as to_read:
 			csvr = csv.reader(to_read)
+			next(csvr)
 			for line in csvr:
 				last_month = line[0]
+		if last_month == '':
+			return -1
 		year, month = last_month.split('_')
-		
-		self.age_date = max(date(year, month, 1), date(2013, 11, 1))
-		
+		self.age_date = max(date(int(year), int(month), 1), date(2013, 11, 1))
+		return 1
 		
 	def get_churns_dates(self):
 		
@@ -46,25 +50,30 @@ class Age_per_cluster():
 				if former_cluster == '' or former_cluster == cluster:
 					former_cluster = cluster			
 					year, month = last_month.split('_')
-					former_date = date(year, month, 1)
+					former_date = date(int(year), int(month), 1)
 					continue
 				
 				if cluster != former_cluster:
-					year, month = first_month.split('_')
-					this_date = date(year, month, 1)
 					
-					mean_date = former_date + ((former_date - this_date) / 2)
+					year, month = first_month.split('_')
+					this_date = date(int(year), int(month), 1)
+					
+					mean_date = former_date + ((this_date - former_date) / 2)
+					
 					nb_years = (self.age_date - mean_date).days / 365 
 					age = self.age - nb_years
 					
-					self.ages_per_churn.append(age)
+					self.ages_per_churn.append(round(age, 1))
 					
 					year, month = last_month.split('_')
-					former_date = date(year, month, 1)
+					former_date = date(int(year), int(month), 1)
+					former_cluster = cluster
 					
 	def run(self):
-		self.get_age_date()	
-		return self.get_churns_dates()			
+		if self.get_age_date() == -1:
+			return []
+		self.get_churns_dates()	
+		return self.ages_per_churn		
 
 
 def get_ages():
@@ -94,11 +103,7 @@ if __name__ == '__main__':
 	
 	churns_per_ego = {}
 	for ego in age_per_ego:
-		try:
-			ages = Age_per_cluster(ego, age_per_ego[ego], args.threshold).run()
-		except:
-			continue
-		print(ego)
+		ages = Age_per_cluster(ego, age_per_ego[ego], args.threshold).run()
 		churns_per_ego[ego] = ages
 		
 	result_folder = join('..', 'Results', 'Churner_ages')
@@ -108,6 +113,8 @@ if __name__ == '__main__':
 	with open(join(result_folder, f'{threshold}.csv'), 'w') as to_write:
 		csvw = csv.writer(to_write)
 		for ego in churns_per_ego:
+			if not churns_per_ego[ego]:
+				continue
 			csvw.writerow([ego] + churns_per_ego[ego])
 	
 

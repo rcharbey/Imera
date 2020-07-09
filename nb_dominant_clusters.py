@@ -46,18 +46,19 @@ class Nb_dominant_clusters:
 			
 			if ratio >= self.dom_threshold:
 				
-				if first_month == -1:
+				if first_month == -1 or cluster != prev_cluster:
 					first_month = month
 				
 				nb_dom_months += 1
 				if nb_dom_months >= 6:	
-					if cluster == '-1':
-						continue
+					
 					if not cluster in self.dominants_clusters:
 						dominant_clusters.append(cluster)
 						self.dominants_clusters[cluster] = {}
+						
 					if not first_month in self.dominants_clusters[cluster]:
 						order_dominant_cluster += 1
+						
 					infos = (order_dominant_cluster, month, nb_dom_months)
 					self.dominants_clusters[cluster][first_month] = infos
 			else:
