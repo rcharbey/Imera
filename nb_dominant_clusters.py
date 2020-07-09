@@ -51,6 +51,8 @@ class Nb_dominant_clusters:
 				
 				nb_dom_months += 1
 				if nb_dom_months >= 6:	
+					if cluster == -1:
+						continue
 					if not cluster in self.dominants_clusters:
 						dominant_clusters.append(cluster)
 						self.dominants_clusters[cluster] = {}
@@ -81,6 +83,9 @@ class Nb_dominant_clusters:
 		
 		folder = join('..','Results','Dominant_clusters', str(self.dom_threshold) ,'Egos')
 		
+		if not isdir(folder):
+			makedirs(folder)
+		
 		with open(join(folder, f'{ego}.csv'), 'w') as to_write:
 			csvw = csv.writer(to_write)
 			csvw.writerow(['dominant_cluster', 'order', 'first_month', 'last_month', 'duration'])
@@ -104,11 +109,9 @@ def write_README():
 		makedirs(join('..', 'Results', 'Dominant_clusters'))
 	
 	with open(join('..', 'Results', 'Nb_dominant_clusters', 'README.md'), 'w') as to_write:
-		   to_write.write('Chaque sous-dossier correspond à un seuil ')
-		   to_write.write('du rapport entre l\'activité du cluster dominant ')
-		   to_write.write('et celle du second cluster\n')
 		   to_write.write('Chaque CSV contient le nombre de clusters dominants par ego')
 		   to_write.write('un cluster est dominant si il publie plus que le second plus actif\n')
+		   to_write.write('selon un seuil qui est apparait dans le nom de chaque CSV')
 		   to_write.write("champs : 'ego', 'nb_clusters'\n")
 		   to_write.write('compute : python3 nb_dominant_clusters [threshold].py \n')
 		   
