@@ -69,7 +69,7 @@ class Age_per_cluster():
 
 def get_ages():
 	age_per_ego = {}
-	with open(join('AGE_FOLDER','egos-age-gender-profession'), 'r') as to_read:
+	with open(join('AGE_FOLDER','egos-age-gender-profession.csv'), 'r') as to_read:
 		csvr = csv.reader(to_read)
 		for line in csvr:
 			age_per_ego[line[0]] = int(line[1])
