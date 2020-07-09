@@ -72,7 +72,10 @@ def get_ages():
 	with open(join('AGE_FOLDER','egos-age-gender-profession.csv'), 'r') as to_read:
 		csvr = csv.reader(to_read)
 		for line in csvr:
-			age_per_ego[line[0]] = int(line[1])
+			try:
+				age_per_ego[line[0]] = int(line[1])
+			except:
+				continue
 	return age_per_ego
 
 
@@ -91,14 +94,18 @@ if __name__ == '__main__':
 	
 	churns_per_ego = {}
 	for ego in age_per_ego:
-		ages = Age_per_cluster(ego, age_per_ego[ego], args.threshold).run()
+		try:
+			ages = Age_per_cluster(ego, age_per_ego[ego], args.threshold).run()
+		except:
+			continue
+		print(ego)
 		churns_per_ego[ego] = ages
 		
 	result_folder = join('..', 'Results', 'Churner_ages')
 	if not isdir(result_folder):
 		makedirs(result_folder)
 	
-	with open(join(result_folder, f'{threshold}'.csv), 'w') as to_write:
+	with open(join(result_folder, f'{threshold}.csv'), 'w') as to_write:
 		csvw = csv.writer(to_write)
 		for ego in churns_per_ego:
 			csvw.writerow([ego] + churns_per_ego[ego])
