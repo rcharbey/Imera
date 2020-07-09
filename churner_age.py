@@ -103,7 +103,10 @@ if __name__ == '__main__':
 	
 	churns_per_ego = {}
 	for ego in age_per_ego:
-		ages = Age_per_cluster(ego, age_per_ego[ego], args.threshold).run()
+		try:
+			ages = Age_per_cluster(ego, age_per_ego[ego], args.threshold).run()
+		except:
+			continue
 		churns_per_ego[ego] = ages
 		
 	result_folder = join('..', 'Results', 'Churner_ages')
