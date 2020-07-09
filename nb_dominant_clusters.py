@@ -31,30 +31,68 @@ class Nb_dominant_clusters:
 		
 	def get_nb_dom_clusters(self):
 		
-		dominant_clusters = set()
+		dominant_clusters = []
+		self.dominants_clusters = {}
 		prev_cluster, nb_dom_months = -1, 0
+		first_month = -1
+		order_dominant_cluster = 0
+		
 		for month in self.months:
+			
 			cluster, ratio = self.dom_clusters[month]
 			
-			# si l'ancien cluster a ete dominant suffisament longtemps
-			# on l'ajoute a la liste des clusters dominants
 			if prev_cluster != cluster:
 				nb_dom_months = 0
 			
 			if ratio >= self.dom_threshold:
+				
+				if first_month == -1:
+					first_month = month
+				
 				nb_dom_months += 1
-				if nb_dom_months >= 6:
-					dominant_clusters.add(cluster)					
+				if nb_dom_months >= 6:	
+					if not cluster in self.dominants_clusters:
+						dominant_clusters.append(cluster)
+						self.dominants_clusters[cluster] = {}
+					if not first_month in self.dominants_clusters[cluster]:
+						order_dominant_cluster += 1
+					infos = (order_dominant_cluster, month, nb_dom_months)
+					self.dominants_clusters[cluster][first_month] = infos
 			else:
 				nb_dom_months = 0
+				first_month = -1
 				
 			prev_cluster = cluster
 			
 		self.nb_dominant_clusters = len(dominant_clusters)
+		
+	def write_dominant_clusters(self):
+		list_clusters = []
+		
+		if len(self.dominants_clusters) == 0:
+			return
+	
+		for cluster in self.dominants_clusters:
+			for first_month in self.dominants_clusters[cluster]:
+				order, last_month, duration = self.dominants_clusters[cluster][first_month]
+				list_clusters.append((cluster, order, first_month, last_month, duration))
+				
+		list_clusters.sort(key = lambda x : x[1])
+		
+		folder = join('..','Results','Dominant_clusters', str(self.dom_threshold) ,'Egos')
+		if not isdir(folder):
+			makedirs(folder)
+		with open(join(folder, f'{ego}.csv'), 'w') as to_write:
+			csvw = csv.writer(to_write)
+			csvw.writerow(['dominant_cluster', 'order', 'first_month', 'last_month', 'duration'])
+			for cluster in list_clusters:
+				csvw.writerow(cluster)
+			
 				
 	def run(self):
 		self.read_data()
 		self.get_nb_dom_clusters()
+		self.write_dominant_clusters()
 		return self.nb_dominant_clusters
 		
 
@@ -82,7 +120,6 @@ if __name__ == '__main__':
 	
 	
 	list_egos = [x.split('.')[0] for x in listdir(join('..', 'Results', 'Cluster_order', 'Egos'))]
-	
 	
 	write_README()	
 	nb_per_ego = {}
