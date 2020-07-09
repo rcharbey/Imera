@@ -51,7 +51,7 @@ class Nb_dominant_clusters:
 				
 				nb_dom_months += 1
 				if nb_dom_months >= 6:	
-					if cluster == -1:
+					if cluster == '-1':
 						continue
 					if not cluster in self.dominants_clusters:
 						dominant_clusters.append(cluster)
