@@ -80,8 +80,7 @@ class Nb_dominant_clusters:
 		list_clusters.sort(key = lambda x : x[1])
 		
 		folder = join('..','Results','Dominant_clusters', str(self.dom_threshold) ,'Egos')
-		if not isdir(folder):
-			makedirs(folder)
+		
 		with open(join(folder, f'{ego}.csv'), 'w') as to_write:
 			csvw = csv.writer(to_write)
 			csvw.writerow(['dominant_cluster', 'order', 'first_month', 'last_month', 'duration'])
@@ -100,13 +99,31 @@ def write_README():
 	
 	if not isdir(join('..', 'Results', 'Nb_dominant_clusters')):
 		makedirs(join('..', 'Results', 'Nb_dominant_clusters'))
+		
+	if not isdir(join('..', 'Results', 'Dominant_clusters')):
+		makedirs(join('..', 'Results', 'Dominant_clusters'))
 	
 	with open(join('..', 'Results', 'Nb_dominant_clusters', 'README.md'), 'w') as to_write:
-		   to_write.write('CSV contenant le nombre de clusters dominants par ego')
+		   to_write.write('Chaque sous-dossier correspond à un seuil ')
+		   to_write.write('du rapport entre l\'activité du cluster dominant ')
+		   to_write.write('et celle du second cluster\n')
+		   to_write.write('Chaque CSV contient le nombre de clusters dominants par ego')
 		   to_write.write('un cluster est dominant si il publie plus que le second plus actif\n')
-		   to_write.write('selon un certain ratio, qui apparait dans le nom du csv\n')
 		   to_write.write("champs : 'ego', 'nb_clusters'\n")
 		   to_write.write('compute : python3 nb_dominant_clusters [threshold].py \n')
+		   
+	   
+	with open(join('..', 'Results', 'Dominant_clusters', 'README.md'), 'w') as to_write:
+		   to_write.write('Chaque sous-dossier correspond à un seuil ')
+		   to_write.write('du rapport entre l\'activité du cluster dominant ')
+		   to_write.write('et celle du second cluster\n')
+		   to_write.write("Chaque CSV contient la liste des clusters dominants successifs \n")
+		   to_write.write('un cluster est dominant si il publie plus que le second plus actif\n')
+		   to_write.write("champs : id du cluster dominant, ordre d'apparition")
+		   to_write.write("premier mois en tant que cluster dominant")
+		   to_write.write("dernier mois en tant que cluster dominant")
+		   to_write.write("nombre de mois en tant que cluster dominant\n")
+		   to_write.write('compute : python3 nb_dominant_clusters.py [threshold] \n')
 		   
 if __name__ == '__main__':		
 	
