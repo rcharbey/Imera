@@ -118,6 +118,9 @@ if __name__ == '__main__':
 				continue
 			norm_churn_per_age.append(nb_churn_per_age[age] / nb_per_age[age])
 			
+		print(nb_per_age)
+		print(nb_churn_per_age)
+			
 		plt.bar(range(all_age_min, 71), norm_churn_per_age)
 		plt.savefig(join(this_plot_folder, fig_file))
 			
