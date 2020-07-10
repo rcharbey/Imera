@@ -110,8 +110,15 @@ if __name__ == '__main__':
 			
 		norm_churn_per_age = []
 		for age in range(all_age_min, 71):
-			norm_churn_per_age.append(nb_churn_per_age[age] / nb_per_age[age]) if age in nb_per_age else 0
-		plt.plot(norm_churn_per_age)
+			if not age in nb_per_age :
+				norm_churn_per_age.append(0)
+				continue
+			if nb_per_age[age] < 10:
+				norm_churn_per_age.append(0)
+				continue
+			norm_churn_per_age.append(nb_churn_per_age[age] / nb_per_age[age])
+			
+		plt.bar(range(all_age_min, 71), norm_churn_per_age)
 		plt.savefig(join(this_plot_folder, fig_file))
 			
 	
