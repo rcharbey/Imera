@@ -18,6 +18,9 @@ if __name__ == '__main__':
 	list_thresholds = [1.25, 1.5, 1.75, 2.0, 3.0]
 	age_per_ego = get_ages()
 	age_span_per_ego = get_age_span()
+	
+	for ego in age_span_per_ego:
+		print(age_span_per_ego[ego])
 		
 	
 	for threshold in list_thresholds:
@@ -124,9 +127,6 @@ if __name__ == '__main__':
 				norm_churn_per_age.append(0)
 				continue
 			norm_churn_per_age.append(nb_churn_per_age[age] / nb_per_age[age])
-			
-		for age in range(all_age_min, 71):
-			  print(f'{age} {nb_per_age[age]} members - {nb_churn_per_age[age]} churners')
 			
 		plt.bar(range(all_age_min, 71), norm_churn_per_age)
 		plt.savefig(join(this_plot_folder, fig_file))
