@@ -17,6 +17,7 @@ import csv
 
 if __name__ == '__main__':
 	list_thresholds = [1.25, 1.5, 1.75, 2.0, 3.0]
+	list_thresholds = [1.25]
 	age_per_ego = get_ages()
 	age_span_per_ego = get_age_span()
 	
@@ -36,7 +37,7 @@ if __name__ == '__main__':
 				
 	list_all_ages.sort()
 	
-	result_folder = join('..', 'Results', 'Plot_churns')
+	result_folder = join('..', 'Results', 'Plot_churns', 'Churns_by_age')
 	if not isdir(result_folder):
 		makedirs(result_folder)
 		
@@ -55,8 +56,22 @@ if __name__ == '__main__':
 		
 		list_ages.sort()
 		
+		
+		fig, ax1 = plt.subplots()
+		ax2 = ax1.twinx()
 		bins = [i for i in range(all_age_min, all_age_max + 1)]
-		plt.hist([list_ages, list_all_ages], color = ['blue', 'red'], bins = bins)
+		n, bins, patches = ax1.hist([list_ages, list_all_ages], bins = bins)
+		plt.cla()
+		
+		width = (bins[1] - bins[0]) * 0.4
+		bins_shifted = bins + width
+		#ax2.hist(list_all_ages, color = ['red'], bins = bins_shifted)
+		
+		
+		ax1.bar(bins[:-1], n[0], width, align='edge', color=['blue'])
+		ax2.bar(bins_shifted[:-1], n[1], width, align='edge', color='red')
+		
+		
 		fig_file = f'plot_churns_{threshold}.svg'
 		print(threshold)
 		plt.savefig(join(result_folder, fig_file))
