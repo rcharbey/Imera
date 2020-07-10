@@ -153,4 +153,7 @@ if __name__ == '__main__':
 	result_folder = join('..', 'Results', 'Nb_dominant_clusters')
 	result_file = join(result_folder, f'nb_clusters_per_ego_{threshold}.csv')
 	labels_to_csv(nb_per_ego, result_file)
+	
+	average = round(sum([nb_per_ego[ego] for ego in nb_per_ego]) / len(nb_per_ego), 2)
+	print(f'threshold {threshold} - {average} dom clusters per ego')
 		

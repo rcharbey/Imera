@@ -98,9 +98,6 @@ if __name__ == '__main__':
 		width = (bins[1] - bins[0]) * 0.4
 		bins_shifted = bins + width
 		
-		print(n[0])
-		print(n[1])
-		
 		ax1.bar(bins[:-1], n[0], width, align='edge', color='blue')
 		ax2 = ax1.twinx()
 		ax2.bar(bins_shifted[:-1], n[1], width, align='edge', color='red')
