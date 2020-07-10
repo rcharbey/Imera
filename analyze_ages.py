@@ -60,6 +60,8 @@ if __name__ == '__main__':
 		plt.hist([list_ages, list_all_ages], color = ['blue', 'red'], bins = bins)
 		fig_file = f'plot_churns_{threshold}.svg'
 		plt.savefig(join(result_folder, fig_file))
+		plt.cla()
+		plt.close("all")
 			
 	
 	
