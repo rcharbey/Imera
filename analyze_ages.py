@@ -12,12 +12,10 @@ from os import makedirs
 from utils import get_ages, get_age_span
 import matplotlib.pyplot as plt
 import csv
-	
 
 
 if __name__ == '__main__':
 	list_thresholds = [1.25, 1.5, 1.75, 2.0, 3.0]
-	list_thresholds = [1.25]
 	age_per_ego = get_ages()
 	age_span_per_ego = get_age_span()
 	
@@ -46,6 +44,8 @@ if __name__ == '__main__':
 		
 		churner_age_folder = join('..', 'Results', 'Churner_ages')
 		list_ages = []
+		nb_egos = 0
+		nb_young_egos = 0
 		
 		with open(join(churner_age_folder, f'{threshold}.csv'), 'r') as to_read:
 			csvr = csv.reader(to_read)
@@ -53,8 +53,16 @@ if __name__ == '__main__':
 				ego, ages = line[0], [int(x.split('.')[0]) for x in line[1:]]
 				for age in ages:
 					list_ages.append(age)
+				
+				# look if ego is young
+				if age_per_ego[ego] < 25:
+					nb_young_egos += 1
+				nb_egos += 1
 		
 		list_ages.sort()
+		
+		prop_young = round(nb_young_egos / nb_egos,2)
+		print(f'prop of young : {prop_young}')
 		
 		
 		fig, ax1 = plt.subplots()
@@ -66,12 +74,8 @@ if __name__ == '__main__':
 		
 		width = (bins[1] - bins[0]) * 0.4
 		bins_shifted = bins + width
-		#ax2.hist(list_all_ages, color = ['red'], bins = bins_shifted)
 		
-		print(n[0])
-		print(n[1])
-		
-		ax1.bar(bins[:-1], n[0], width, align='edge', color=['blue'])
+		ax1.bar(bins[:-1], n[0], width, align='edge', color='blue')
 		ax2.bar(bins_shifted[:-1], n[1], width, align='edge', color='red')
 		
 		
