@@ -10,6 +10,7 @@ import csv
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import gzip
+from os.path import join
 
 		
 def date_to_str(date):
@@ -83,3 +84,15 @@ def smooth_data(data, months):
 			smooth_data[cluster][date_str] += sum_neighbors
 			
 	return smooth_data
+
+
+def get_ages():
+	age_per_ego = {}
+	with open(join('AGE_FOLDER','egos-age-gender-profession.csv'), 'r') as to_read:
+		csvr = csv.reader(to_read)
+		for line in csvr:
+			try:
+				age_per_ego[line[0]] = int(line[1])
+			except:
+				continue
+	return age_per_ego

@@ -10,6 +10,7 @@ from os.path import join, isdir, expanduser
 from os import makedirs, listdir
 import csv
 from datetime import date
+from utils import get_ages
 
 
 class Age_per_cluster():
@@ -76,16 +77,6 @@ class Age_per_cluster():
 		return self.ages_per_churn		
 
 
-def get_ages():
-	age_per_ego = {}
-	with open(join('AGE_FOLDER','egos-age-gender-profession.csv'), 'r') as to_read:
-		csvr = csv.reader(to_read)
-		for line in csvr:
-			try:
-				age_per_ego[line[0]] = int(line[1])
-			except:
-				continue
-	return age_per_ego
 
 
 
