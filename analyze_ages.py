@@ -17,7 +17,6 @@ import csv
 
 if __name__ == '__main__':
 	list_thresholds = [1.25, 1.5, 1.75, 2.0, 3.0]
-	list_thresholds = [1.25]
 	age_per_ego = get_ages()
 	age_span_per_ego = get_age_span()
 	
@@ -59,6 +58,7 @@ if __name__ == '__main__':
 		bins = [i for i in range(all_age_min, all_age_max + 1)]
 		plt.hist([list_ages, list_all_ages], color = ['blue', 'red'], bins = bins)
 		fig_file = f'plot_churns_{threshold}.svg'
+		print(threshold)
 		plt.savefig(join(result_folder, fig_file))
 		plt.cla()
 		plt.close("all")
