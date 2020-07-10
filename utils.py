@@ -96,3 +96,14 @@ def get_ages():
 			except:
 				continue
 	return age_per_ego
+
+def get_age_span():
+	age_span_per_ego = {}
+	with open(join('..', 'Results', 'Age_span', 'age_span_per_ego.csv'), 'r') as to_read:
+		csvr = csv.reader(to_read)
+		for line in csvr:
+			try:
+				age_span_per_ego[line[0]] = (line[1], line[2])
+			except:
+				continue
+	return age_span_per_ego
