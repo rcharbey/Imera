@@ -44,14 +44,15 @@ for ego in listdir(data_folder):
 		if age >= age_slice[0] and age <= age_slice[1]:
 			values_per_slice[age_slice].append(len(posts_per_cluster))
 			
+			
 	
-plt.hist(nb_clusters)
+plt.hist(nb_clusters, bins = range(1, 50))
 plt.savefig(join(plot_folder, 'nb_active_clusters_per_ego.svg'))
 plt.cla()
 plt.close("all")
 
 for age_slice in values_per_slice:
-	plt.hist(values_per_slice[age_slice])
+	plt.hist(values_per_slice[age_slice], bins = range(1, 50))
 	plt.savefig(join(plot_folder, f'nb_active_clusters_per_ego_{age_slice}.svg'))
 	plt.cla()
 	plt.close("all")
