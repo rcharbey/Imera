@@ -68,7 +68,6 @@ if __name__ == '__main__':
 		
 		
 		fig, ax1 = plt.subplots()
-		ax2 = ax1.twinx()
 		bins = [i for i in range(all_age_min, all_age_max + 1)]
 		ax1.hist([list_ages, list_all_ages], bins = bins)
 		n, bins, patches = ax1.hist([list_ages, list_all_ages], bins = bins)
@@ -81,6 +80,7 @@ if __name__ == '__main__':
 		print(n[1])
 		
 		ax1.bar(bins[:-1], n[0], width, align='edge', color='blue')
+		ax2 = ax1.twinx()
 		ax2.bar(bins_shifted[:-1], n[1], width, align='edge', color='red')
 		
 		
