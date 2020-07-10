@@ -60,6 +60,7 @@ if __name__ == '__main__':
 		fig, ax1 = plt.subplots()
 		ax2 = ax1.twinx()
 		bins = [i for i in range(all_age_min, all_age_max + 1)]
+		ax1.hist([list_ages, list_all_ages], bins = bins)
 		n, bins, patches = ax1.hist([list_ages, list_all_ages], bins = bins)
 		plt.cla()
 		
@@ -67,6 +68,8 @@ if __name__ == '__main__':
 		bins_shifted = bins + width
 		#ax2.hist(list_all_ages, color = ['red'], bins = bins_shifted)
 		
+		print(n[0])
+		print(n[1])
 		
 		ax1.bar(bins[:-1], n[0], width, align='edge', color=['blue'])
 		ax2.bar(bins_shifted[:-1], n[1], width, align='edge', color='red')
@@ -74,6 +77,7 @@ if __name__ == '__main__':
 		
 		fig_file = f'plot_churns_{threshold}.svg'
 		print(threshold)
+		plt.tight_layout()
 		plt.savefig(join(result_folder, fig_file))
 		plt.cla()
 		plt.close("all")
