@@ -29,6 +29,10 @@ if __name__ == '__main__':
 		all_age_min, all_age_max = 1000, 0
 		nb_per_age, nb_churn_per_age = {}, {}
 		for ego in age_span_per_ego:
+			
+			if age_per_ego[ego] < 18:
+				continue
+			
 			age_min, age_max = age_span_per_ego[ego]
 			age_min = int(age_min.split('.')[0])
 			age_max = int(age_max.split('.')[0])
@@ -59,9 +63,12 @@ if __name__ == '__main__':
 			csvr = csv.reader(to_read)
 			for line in csvr:
 				ego, ages = line[0], [int(x.split('.')[0]) for x in line[1:]]
+				
+				if age_per_ego[ego] < 18:
+					continue
+				
 				for age in ages:
 					list_ages.append(age)
-					
 					nb_churn_per_age[age] += 1
 				
 				# look if ego is young
