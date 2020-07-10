@@ -19,10 +19,6 @@ if __name__ == '__main__':
 	age_per_ego = get_ages()
 	age_span_per_ego = get_age_span()
 	
-	for ego in age_span_per_ego:
-		print(age_span_per_ego[ego])
-		
-	
 	for threshold in list_thresholds:
 	
 		youngs = [ego for ego in age_per_ego if age_per_ego[ego] < 25]
@@ -69,6 +65,9 @@ if __name__ == '__main__':
 				
 				if int(age_per_ego[ego]) < 18:
 					continue
+				
+				
+				print(age_span_per_ego[ego])
 				
 				for age in ages:
 					list_ages.append(age)
