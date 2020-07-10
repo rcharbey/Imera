@@ -24,6 +24,7 @@ if __name__ == '__main__':
 	
 	list_all_ages = []
 	all_age_min, all_age_max = 1000, 0
+	nb_per_age, nb_churn_per_age = {}, {}
 	for ego in age_span_per_ego:
 		age_min, age_max = age_span_per_ego[ego]
 		age_min = int(age_min.split('.')[0])
@@ -36,16 +37,20 @@ if __name__ == '__main__':
 			if age > all_age_max:
 				all_age_max = age
 				
+			if not age in nb_per_age:
+				nb_per_age[age] = 0
+				nb_churn_per_age[age] = 0
+			nb_per_age[age] += 1	
+				
 	list_all_ages.sort()
 	
-	result_folder = join('..', 'Results', 'Plot_churns', 'Churns_by_age')
-	if not isdir(result_folder):
-		makedirs(result_folder)
+	result_folder = join('..', 'Results')
+	plot_folder = join(result_folder, 'Plot_churns')
 		
 	
 	for threshold in list_thresholds:
 		
-		churner_age_folder = join('..', 'Results', 'Churner_ages')
+		churner_age_folder = join(result_folder, 'Churner_ages')
 		list_ages = []
 		nb_egos = 0
 		nb_young_egos = 0
@@ -56,6 +61,8 @@ if __name__ == '__main__':
 				ego, ages = line[0], [int(x.split('.')[0]) for x in line[1:]]
 				for age in ages:
 					list_ages.append(age)
+					
+					nb_churn_per_age[age] += 1
 				
 				# look if ego is young
 				if age_per_ego[ego] < 25:
@@ -66,6 +73,10 @@ if __name__ == '__main__':
 		
 		prop_young = round(nb_young_egos / nb_egos,2)
 		
+		
+		this_plot_folder = join(plot_folder, 'Brute')		
+		if not isdir(this_plot_folder):
+			makedirs(this_plot_folder)
 		
 		fig, ax1 = plt.subplots()
 		bins = [i for i in range(all_age_min, all_age_max + 1)]
@@ -88,9 +99,20 @@ if __name__ == '__main__':
 		
 		print(f'seuil = {threshold} - prop of young : {prop_young}')
 		plt.tight_layout()
-		plt.savefig(join(result_folder, fig_file))
+		plt.savefig(join(this_plot_folder, fig_file))
 		plt.cla()
 		plt.close("all")
+		
+		
+		this_plot_folder = join(plot_folder, 'Norm')		
+		if not isdir(this_plot_folder):
+			makedirs(this_plot_folder)
+			
+		norm_churn_per_age = []
+		for age in range(all_age_min, all_age_max + 1):
+			norm_churn_per_age.append(nb_churn_per_age[age] / nb_per_age[age]) if age in nb_per_age else 0
+		plt.plot(norm_churn_per_age)
+		plt.savefig(join(this_plot_folder, fig_file))
 			
 	
 	
