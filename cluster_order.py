@@ -64,6 +64,7 @@ class Cluster_order:
 		self.smoothed_posts_per_cluster = utils.smooth_data(self.posts_per_cluster, self.months)
 		self.get_cluster_per_month()
 		self.write_results()
+		return len(self.posts_per_cluster)
 		
 
 def write_README():
