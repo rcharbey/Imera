@@ -33,7 +33,7 @@ if __name__ == '__main__':
 		nb_per_age, nb_churn_per_age = {}, {}
 		for ego in age_span_per_ego:
 			
-			if age_per_ego[ego] < 18:
+			if int(age_per_ego[ego]) < 18:
 				continue
 			
 			age_min, age_max = age_span_per_ego[ego]
@@ -67,7 +67,7 @@ if __name__ == '__main__':
 			for line in csvr:
 				ego, ages = line[0], [int(x.split('.')[0]) for x in line[1:]]
 				
-				if age_per_ego[ego] < 18:
+				if int(age_per_ego[ego]) < 18:
 					continue
 				
 				for age in ages:
