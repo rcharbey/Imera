@@ -31,7 +31,11 @@ for ego in listdir(data_folder):
 		continue
 
 	data_file = join(data_folder, ego)
-	posts_per_cluster = utils.get_posts_per_cluster(data_file)
+	try:
+		posts_per_cluster = utils.get_posts_per_cluster(data_file)
+	except:
+		print(ego)
+		continue
 	nb_clusters.append(len(posts_per_cluster))
 	
 	age = age_per_ego[ego.split('.')[0][:8]]
@@ -39,7 +43,6 @@ for ego in listdir(data_folder):
 	for age_slice in slices:
 		if age >= age_slice[0] and age <= age_slice[1]:
 			values_per_slice[age_slice].append(len(posts_per_cluster))
-			print(values_per_slice)
 			
 	
 plt.hist(nb_clusters)
