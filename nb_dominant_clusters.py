@@ -27,7 +27,7 @@ class Nb_dominant_clusters:
 			next(csvr)
 			for line in csvr:
 				self.months.append(line[0])
-				self.dom_clusters[line[0]] = (line[1], float(line[3]))
+				self.dom_clusters[line[0]] = (line[1], float(line[3]), int(line[4]))
 		
 	def get_nb_dom_clusters(self):
 		
@@ -39,12 +39,12 @@ class Nb_dominant_clusters:
 		
 		for month in self.months:
 			
-			cluster, ratio = self.dom_clusters[month]
+			cluster, ratio, nb_posts = self.dom_clusters[month]
 			
 			if prev_cluster != cluster:
 				nb_dom_months = 0
 			
-			if ratio >= self.dom_threshold:
+			if ratio >= self.dom_threshold and nb_posts >= 10:
 				
 				if first_month == -1 or cluster != prev_cluster:
 					first_month = month
