@@ -109,7 +109,7 @@ if __name__ == '__main__':
 			makedirs(this_plot_folder)
 			
 		norm_churn_per_age = []
-		for age in range(all_age_min, all_age_max + 1):
+		for age in range(all_age_min, 71):
 			norm_churn_per_age.append(nb_churn_per_age[age] / nb_per_age[age]) if age in nb_per_age else 0
 		plt.plot(norm_churn_per_age)
 		plt.savefig(join(this_plot_folder, fig_file))
