@@ -19,6 +19,9 @@ if __name__ == '__main__':
 	age_per_ego = get_ages()
 	age_span_per_ego = get_age_span()
 	
+	youngs = [ego for ego in age_per_ego if age_per_ego[ego] < 25]
+	print(f'prop jeunes : {round(len(youngs) / len(age_per_ego), 2)}')
+	
 	list_all_ages = []
 	all_age_min, all_age_max = 1000, 0
 	for ego in age_span_per_ego:
@@ -62,7 +65,6 @@ if __name__ == '__main__':
 		list_ages.sort()
 		
 		prop_young = round(nb_young_egos / nb_egos,2)
-		print(f'prop of young : {prop_young}')
 		
 		
 		fig, ax1 = plt.subplots()
@@ -80,7 +82,8 @@ if __name__ == '__main__':
 		
 		
 		fig_file = f'plot_churns_{threshold}.svg'
-		print(threshold)
+		
+		print(f'seuil = {threshold} - prop of young : {prop_young}')
 		plt.tight_layout()
 		plt.savefig(join(result_folder, fig_file))
 		plt.cla()
