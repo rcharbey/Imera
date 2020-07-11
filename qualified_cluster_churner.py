@@ -59,7 +59,7 @@ if __name__ == '__main__':
 	
 	Nabil_folder = join('..', 'Results', 'NABIL')
 	clusters_per_ego = {}
-	with open(join(Nabil_folder, 'filtered_egos_id.txt.csv') , 'r') as to_read:
+	with open(join(Nabil_folder, 'filtered_egos_id.txt') , 'r') as to_read:
 		csvr = csv.reader(to_read)
 		for line in csvr:
 			ego,cluster,month,year,alter_count = line
