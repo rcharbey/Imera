@@ -46,7 +46,7 @@ for ego in nb_dom_clusters_per_ego:
 			values_per_slice[age_slice].append(nb_dom_clusters)
 		
 		
-bins = range(0, 10)
+bins = range(1, 10)
 
 	
 plt.hist(list_nb_dom_clusters, bins = bins, align = 'mid')
