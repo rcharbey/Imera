@@ -39,8 +39,7 @@ for threshold in list_thresholds:
 			continue
 		age = age_per_ego[ego]
 		nb_dom_clusters = int(nb_dom_clusters_per_ego[ego])
-		if nb_dom_clusters == 0:
-			continue
+		
 		
 		list_nb_dom_clusters.append(nb_dom_clusters)
 		for age_slice in slices:
