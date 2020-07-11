@@ -59,7 +59,7 @@ if __name__ == '__main__':
 	
 	Nabil_folder = join('..', 'Data', 'NABIL')
 	clusters_per_ego = {}
-	with open(join(Nabil_folder, 'filtered_egos_month_year_cluster_altercount.csv') , 'r') as to_read:
+	with open(join(Nabil_folder, 'filtered_egos_id.txt.csv') , 'r') as to_read:
 		csvr = csv.reader(to_read)
 		for line in csvr:
 			ego,cluster,month,year,alter_count = line
@@ -77,14 +77,11 @@ if __name__ == '__main__':
 	
 	for ego in list_egos:
 		qualified_alters = get_qualified(ego) 
-		print(clusters_per_ego[ego])
 		for alter in qualified_alters:
 			cluster = qualified_alters[alter]['cluster']
-			print(cluster)
 			if cluster in clusters_per_ego[ego]:
 				cluster_order = clusters_per_ego[ego].index(cluster) + 1
 				for qualification in qualified_alters[alter]['qualifications']:
-					print(qualification)
 					cluster_order_per_qualif[qualification][cluster_order] += 1
 					
 	data_for_chi2 = []
@@ -97,4 +94,4 @@ if __name__ == '__main__':
 		data_for_chi2.append(qualif_data)
 		print()
 		
-	print(chi2_contingency(data_for_chi2))
+	print(chi2_contingency(data_for_chi2))[-1]
