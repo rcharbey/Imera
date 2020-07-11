@@ -22,41 +22,47 @@ if not isdir(plot_folder):
 	
 slices = [(18,24), (25,39), (40,64), (65,100)]
 
-# list_thresholds = [1.25, 1.5, 1.75, 2.0, 3.0]
-# for threshold in list_thresholds:
+list_thresholds = [1.25, 1.5, 1.75, 2.0, 3.0]
+for threshold in list_thresholds:
 
-list_nb_dom_clusters = []	
-values_per_slice = {}
-for age_slice in slices:
-		values_per_slice[age_slice] = []
-
-
-datafile = join(data_folder, f'nb_clusters_per_ego_1.01.csv')
-nb_dom_clusters_per_ego = csv_to_labels(datafile)
-
-for ego in nb_dom_clusters_per_ego:
-	if not ego in age_per_ego:
-		continue
-	age = age_per_ego[ego]
-	nb_dom_clusters = int(nb_dom_clusters_per_ego[ego])
-	
-	list_nb_dom_clusters.append(nb_dom_clusters)
+	list_nb_dom_clusters = []	
+	values_per_slice = {}
 	for age_slice in slices:
-		if age >= age_slice[0] and age <= age_slice[1]:
-			values_per_slice[age_slice].append(nb_dom_clusters)
-		
-		
-bins = range(1, 10)
-
+			values_per_slice[age_slice] = []
 	
-plt.hist(list_nb_dom_clusters, bins = bins, align = 'mid')
-plt.savefig(join(plot_folder, 'nb_dom_clusters_per_ego.svg'))
-plt.cla()
-plt.close("all")
-
-for age_slice in values_per_slice:
-	plt.hist(values_per_slice[age_slice], bins = bins, align = 'mid')
-	plt.savefig(join(plot_folder, f'nb_dom_clusters_per_ego_{age_slice}.svg'))
+	
+	datafile = join(data_folder, f'nb_clusters_per_ego_{threshold}.csv')
+	nb_dom_clusters_per_ego = csv_to_labels(datafile)
+	
+	for ego in nb_dom_clusters_per_ego:
+		if not ego in age_per_ego:
+			continue
+		age = age_per_ego[ego]
+		nb_dom_clusters = int(nb_dom_clusters_per_ego[ego])
+		if nb_dom_clusters == 0:
+			continue
+		
+		list_nb_dom_clusters.append(nb_dom_clusters)
+		for age_slice in slices:
+			if age >= age_slice[0] and age <= age_slice[1]:
+				values_per_slice[age_slice].append(nb_dom_clusters)
+			
+			
+	mean_per_age = []		
+	for age_slice in slices:
+		if len(values_per_slice[age_slice]) == 0:
+			mean_per_age.append(0)
+			continue
+		total = sum(values_per_slice[age_slice])
+		mean = total / len(values_per_slice[age_slice])
+		mean_per_age.append(mean)
+			
+	age_slices = ['18-24', '25-29', '40-64', '65+' ]
+	
+	ax = plt.subplot()
+	ax.bar(age_slices, mean_per_age)
+		
+	plt.savefig(join(plot_folder, f'nb_dom_clusters_per_ego_{threshold}.svg'))
 	plt.cla()
 	plt.close("all")
 
