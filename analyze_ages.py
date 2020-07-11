@@ -141,6 +141,8 @@ if __name__ == '__main__':
 				continue
 			norm_churn_per_age.append(nb_churn_per_age[age] / nb_per_age[age])
 			
+		print(norm_churn_per_age)
+		print(len(norm_churn_per_age))
 		print({age : round(norm_churn_per_age[i],1) for (i, age) in enumerate(list_ages)})
 			
 		plt.bar(range(10, 51), norm_churn_per_age)
