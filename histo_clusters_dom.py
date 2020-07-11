@@ -38,7 +38,7 @@ for ego in nb_dom_clusters_per_ego:
 	if not ego in age_per_ego:
 		continue
 	age = age_per_ego[ego]
-	nb_dom_clusters = nb_dom_clusters_per_ego[ego]
+	nb_dom_clusters = int(nb_dom_clusters_per_ego[ego])
 	
 	list_nb_dom_clusters.append(nb_dom_clusters)
 	for age_slice in slices:
@@ -46,16 +46,16 @@ for ego in nb_dom_clusters_per_ego:
 			values_per_slice[age_slice].append(nb_dom_clusters)
 		
 		
-bins = range(1, 20)
+bins = range(1, 10)
 
 	
-plt.hist(list_nb_dom_clusters)
+plt.hist(list_nb_dom_clusters, bins = bins, align = 'mid')
 plt.savefig(join(plot_folder, 'nb_dom_clusters_per_ego.svg'))
 plt.cla()
 plt.close("all")
 
 for age_slice in values_per_slice:
-	plt.hist(values_per_slice[age_slice])
+	plt.hist(values_per_slice[age_slice], bins = bins, align = 'mid')
 	plt.savefig(join(plot_folder, f'nb_dom_clusters_per_ego_{age_slice}.svg'))
 	plt.cla()
 	plt.close("all")
