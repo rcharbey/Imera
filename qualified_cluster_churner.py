@@ -57,7 +57,7 @@ def get_qualified(ego):
 		   
 if __name__ == '__main__':
 	
-	Nabil_folder = join('..', 'Data', 'NABIL')
+	Nabil_folder = join('..', 'Results', 'NABIL')
 	clusters_per_ego = {}
 	with open(join(Nabil_folder, 'filtered_egos_id.txt.csv') , 'r') as to_read:
 		csvr = csv.reader(to_read)
