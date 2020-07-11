@@ -140,7 +140,7 @@ if __name__ == '__main__':
 				norm_churn_per_age.append(0)
 				continue
 			norm_churn_per_age.append(100*nb_churn_per_age[age] / nb_per_age[age])
-		print(norm_churn_per_age)
+		print({age : round(norm_churn_per_age[age-10],1) for age in range(10,51)})
 			
 		plt.bar(range(10, 51), norm_churn_per_age)
 		plt.savefig(join(this_plot_folder, fig_file))
