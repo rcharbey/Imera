@@ -17,7 +17,6 @@ from csv_utils import csv_to_labels
 
 if __name__ == '__main__':
 	list_thresholds = [1.25, 1.5, 1.75, 2.0, 3.0]
-	list_thresholds = [1.25]
 	age_per_ego = get_ages()
 	age_span_per_ego = get_age_span()
 	
@@ -41,6 +40,9 @@ if __name__ == '__main__':
 		all_age_min, all_age_max = 1000, 0
 		nb_per_age, nb_churn_per_age = {}, {}
 		for ego in list_egos:
+			
+			if not ego in age_per_ego:
+				continue
 			
 			if int(age_per_ego[ego]) < 18:
 				continue
