@@ -109,4 +109,4 @@ if __name__ == '__main__':
 		data_for_chi2.append(qualif_data)
 		print()
 		
-	print(chi2_contingency(data_for_chi2))[-1]
+	print(chi2_contingency(data_for_chi2)[-1])
