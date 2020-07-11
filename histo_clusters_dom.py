@@ -31,7 +31,7 @@ for age_slice in slices:
 		values_per_slice[age_slice] = []
 
 
-datafile = join(data_folder, f'nb_clusters_per_ego_2.0.csv')
+datafile = join(data_folder, f'nb_clusters_per_ego_1.01.csv')
 nb_dom_clusters_per_ego = csv_to_labels(datafile)
 
 for ego in nb_dom_clusters_per_ego:
@@ -46,7 +46,7 @@ for ego in nb_dom_clusters_per_ego:
 			values_per_slice[age_slice].append(nb_dom_clusters)
 		
 		
-bins = range(1, 10)
+bins = range(0, 10)
 
 	
 plt.hist(list_nb_dom_clusters, bins = bins, align = 'mid')
