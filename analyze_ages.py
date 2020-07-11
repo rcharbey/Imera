@@ -114,7 +114,7 @@ if __name__ == '__main__':
 		
 		
 		fig_file = f'plot_churns_{threshold}.svg'
-		
+		print()
 		print(f'seuil = {threshold} - prop of young : {prop_young}')
 		plt.tight_layout()
 		plt.savefig(join(this_plot_folder, fig_file))
@@ -143,9 +143,10 @@ if __name__ == '__main__':
 			
 		list_ages = set(list_ages)
 		
-		print(norm_churn_per_age)
-		
 		norm_churn_per_age = norm_churn_per_age[10:51]
+		
+		print({f'{age} : {norm_churn_per_age[age]}' for age in range(10,51)})
+		
 			
 		plt.bar(range(10, 51), norm_churn_per_age)
 		plt.savefig(join(this_plot_folder, fig_file))
