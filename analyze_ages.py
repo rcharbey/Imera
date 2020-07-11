@@ -129,8 +129,8 @@ if __name__ == '__main__':
 		
 			
 		print(this_plot_folder)
-		print({age : nb_churn_per_age[age] for age list_ages})
-		print({age :nb_per_age[age] for list_ages})
+		print({age : nb_churn_per_age[age] for age in list_ages})
+		print({age :nb_per_age[age] for age in list_ages})
 		norm_churn_per_age = []
 		for age in range(10, 51):
 			if not age in nb_per_age :
