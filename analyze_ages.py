@@ -145,7 +145,7 @@ if __name__ == '__main__':
 		
 		print(norm_churn_per_age)
 		
-		norm_churn_per_age = norm_churn_per_age[age][10:51]
+		norm_churn_per_age = norm_churn_per_age[10:51]
 			
 		plt.bar(range(10, 51), norm_churn_per_age)
 		plt.savefig(join(this_plot_folder, fig_file))
