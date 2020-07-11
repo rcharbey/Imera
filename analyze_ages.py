@@ -145,8 +145,9 @@ if __name__ == '__main__':
 		
 		print(norm_churn_per_age)
 		print(len(norm_churn_per_age))
-		print([(i, age) for (i, age) in enumerate(list_ages)])
 		print({age : round(norm_churn_per_age[i],1) for (i, age) in enumerate(list_ages)})
+		
+		norm_churn_per_age = {age : norm_churn_per_age[age] for age in list_ages if age in range(10, 51)}
 			
 		plt.bar(range(10, 51), norm_churn_per_age)
 		plt.savefig(join(this_plot_folder, fig_file))
