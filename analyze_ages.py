@@ -145,7 +145,7 @@ if __name__ == '__main__':
 		
 		norm_churn_per_age = norm_churn_per_age[10:51]
 		
-		print({f'{age} : {norm_churn_per_age[age]}' for age in range(10,51)})
+		print({f'{age} : {round(norm_churn_per_age[age], 1)}' for age in range(10,51)})
 		
 			
 		plt.bar(range(10, 51), norm_churn_per_age)
