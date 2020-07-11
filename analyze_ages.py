@@ -132,15 +132,16 @@ if __name__ == '__main__':
 		print({age : nb_churn_per_age[age] for age in list_ages})
 		print({age :nb_per_age[age] for age in list_ages})
 		norm_churn_per_age = []
-		for age in range(10, 51):
+		for age in range(max(list_ages)):
 			if not age in nb_per_age :
 				norm_churn_per_age.append(0)
 				continue
 			if nb_per_age[age] < 10:
 				norm_churn_per_age.append(0)
 				continue
-			norm_churn_per_age.append(100*nb_churn_per_age[age] / nb_per_age[age])
-		print({age : round(norm_churn_per_age[i],1) for i, age in enumerate(list_ages)})
+			norm_churn_per_age.append(nb_churn_per_age[age] / nb_per_age[age])
+			
+		print({age : round(norm_churn_per_age[i],1) for (i, age) in enumerate(list_ages)})
 			
 		plt.bar(range(10, 51), norm_churn_per_age)
 		plt.savefig(join(this_plot_folder, fig_file))
