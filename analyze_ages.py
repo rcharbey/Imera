@@ -127,10 +127,10 @@ if __name__ == '__main__':
 			makedirs(this_plot_folder)
 			
 		print(this_plot_folder)
-		print(nb_churn_per_age)
-		print(nb_per_age)
+		print({age : nb_churn_per_age[age] for age in range(1, 50)})
+		print({age :nb_per_age[age] for age in range(1, 50)})
 		norm_churn_per_age = []
-		for age in range(10, 71):
+		for age in range(10, 51):
 			if not age in nb_per_age :
 				norm_churn_per_age.append(0)
 				continue
@@ -138,6 +138,7 @@ if __name__ == '__main__':
 				norm_churn_per_age.append(0)
 				continue
 			norm_churn_per_age.append(100*nb_churn_per_age[age] / nb_per_age[age])
+		print({age :norm_churn_per_age[age] for age in range(1, 50)})
 			
 		plt.bar(range(10, 71), norm_churn_per_age)
 		plt.savefig(join(this_plot_folder, fig_file))
