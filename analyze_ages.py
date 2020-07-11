@@ -143,6 +143,7 @@ if __name__ == '__main__':
 			
 		print(norm_churn_per_age)
 		print(len(norm_churn_per_age))
+		print([(i, age) for (i, age) in enumerate(list_ages)])
 		print({age : round(norm_churn_per_age[i],1) for (i, age) in enumerate(list_ages)})
 			
 		plt.bar(range(10, 51), norm_churn_per_age)
