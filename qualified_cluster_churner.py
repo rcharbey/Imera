@@ -91,7 +91,6 @@ if __name__ == '__main__':
 		
 		cluster_order = get_dom_cluster_order(ego)
 		
-		
 		qualified_alters = get_qualified(ego) 
 		for alter in qualified_alters:
 			cluster = qualified_alters[alter]['cluster']

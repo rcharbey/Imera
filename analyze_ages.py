@@ -12,12 +12,15 @@ from os import makedirs
 from utils import get_ages, get_age_span
 import matplotlib.pyplot as plt
 import csv
+from csv_utils import csv_to_labels
 
 
 if __name__ == '__main__':
 	list_thresholds = [1.25, 1.5, 1.75, 2.0, 3.0]
+	list_thresholds = [1.25]
 	age_per_ego = get_ages()
 	age_span_per_ego = get_age_span()
+	
 
 	for ego in age_span_per_ego:
 		if int(age_per_ego[ego]) < 18 : 
@@ -25,6 +28,11 @@ if __name__ == '__main__':
 		print(f'{ego} : {age_span_per_ego[ego]}')
 	
 	for threshold in list_thresholds:
+		
+		nb_dom_folder = join('..', 'Results', 'Nb_dominant_clusters')
+		nb_dom_file = join(nb_dom_folder, f'nb_clusters_per_ego_{threshold}.csv')
+		nb_dom_per_ego = csv_to_labels(nb_dom_file)
+		list_egos = [ego for ego in nb_dom_per_ego if int(nb_dom_per_ego[ego]) > 1]
 	
 		youngs = [ego for ego in age_per_ego if age_per_ego[ego] < 25]
 		print(f'prop jeunes : {round(len(youngs) / len(age_per_ego), 2)}')
@@ -32,7 +40,7 @@ if __name__ == '__main__':
 		list_all_ages = []
 		all_age_min, all_age_max = 1000, 0
 		nb_per_age, nb_churn_per_age = {}, {}
-		for ego in age_span_per_ego:
+		for ego in list_egos:
 			
 			if int(age_per_ego[ego]) < 18:
 				continue
@@ -116,6 +124,9 @@ if __name__ == '__main__':
 		if not isdir(this_plot_folder):
 			makedirs(this_plot_folder)
 			
+		print(this_plot_folder)
+		print(nb_churn_per_age)
+		print(nb_per_age)
 		norm_churn_per_age = []
 		for age in range(10, 71):
 			if not age in nb_per_age :
