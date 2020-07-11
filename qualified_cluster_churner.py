@@ -52,6 +52,21 @@ def get_qualified(ego):
 	
 	return qualified_alters
 
+def get_dom_cluster_order(ego):
+	churn_folder = join('..', 'Results',
+					    'Dominant_clusters', '2.0', 'Egos')
+	
+	cluster_order = {}
+	
+	with open(join(churn_folder, f'{ego}.csv'), 'r') as to_read:
+		csvr = csv.reader(to_read)
+		next(csvr)
+		for line in csvr:
+			cluster = line[0]
+			if not cluster in cluster_order:
+				cluster_order[cluster] = len(cluster_order) + 1
+				
+	return cluster_order
 	
 	
 		   
@@ -59,30 +74,31 @@ if __name__ == '__main__':
 	
 	Nabil_folder = join('..', 'Results', 'NABIL')
 	clusters_per_ego = {}
+	list_egos = []
 	with open(join(Nabil_folder, 'filtered_egos_id.txt') , 'r') as to_read:
 		csvr = csv.reader(to_read)
 		for line in csvr:
-			ego,cluster,month,year,alter_count = line
-			if not ego in clusters_per_ego:
-				clusters_per_ego[ego] = [cluster]
-			else:
-				clusters_per_ego[ego].append(cluster)
+			list_egos.append(line[0])
 			
-	list_egos = [ego for ego in clusters_per_ego.keys() if len(clusters_per_ego[ego]) == 2]		
 			
 	folder = join('..', 'Results', 'qualified_cluster_churner')
 	#build_folders(folder)
 	#write_README(folder)
-	cluster_order_per_qualif = {qualification : {1 : 0, 2 : 0} for qualification in qualifications}
+	cluster_order_per_qualif = {qualification : {1 : 0, 2 : 0, 3 : 0}
+							  for qualification in qualifications}
 	
 	for ego in list_egos:
+		
+		cluster_order = get_dom_cluster_order(ego)
+		
+		
 		qualified_alters = get_qualified(ego) 
 		for alter in qualified_alters:
 			cluster = qualified_alters[alter]['cluster']
-			if cluster in clusters_per_ego[ego]:
-				cluster_order = clusters_per_ego[ego].index(cluster) + 1
-				for qualification in qualified_alters[alter]['qualifications']:
-					cluster_order_per_qualif[qualification][cluster_order] += 1
+			if not cluster in cluster_order:
+				continue
+			for qualification in qualified_alters[alter]['qualifications']:
+				cluster_order_per_qualif[qualification][cluster_order[cluster]] += 1
 					
 	data_for_chi2 = []
 	for qualification in qualifications:
